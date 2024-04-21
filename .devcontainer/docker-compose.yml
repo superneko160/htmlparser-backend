@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  htmlparser-backend:
+    build: .
+    container_name: htmlparser-backend
+    volumes:
+      - ../:/html-parser-backend
+    command: bash
+    tty: true
+    ports:
+      - 3000:3000
