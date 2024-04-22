@@ -5,7 +5,8 @@ backend app
 ## Run
 
 ```bash
-npx wrangler dev
+cd htmlparser
+npm run dev
 ```
 
 ## Access
