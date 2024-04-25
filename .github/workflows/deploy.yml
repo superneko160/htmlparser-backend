@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest  # ジョブをubuntu-latestランナー上で実行
     name: Deploy
     steps:
-      - uses: actions/checkout@v3  # GitHubリポジトリをチェックアウト
+      - uses: actions/checkout@v4  # GitHubリポジトリをチェックアウト
 
       - name: Install dependencies  # 依存モジュールのインストール
         run: |
