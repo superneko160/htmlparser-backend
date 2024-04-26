@@ -10,16 +10,16 @@ export function getElementAttributes(contents: string, elementNames: string[]): 
 
     const $ = cheerio.load(contents)
 
-    const data = {}
+    const data: { [key: string]: Object[] } = {}
 
     elementNames.forEach(elementName => {
 
-        const attributes = []
+        const attributes: Object[] = []
 
         // 指定した要素名の要素を探索
         $(elementName).each((i, el) => {
-            const attrs = el.attribs
-            const elementAttrs = {}
+            const attrs = (el as cheerio.Element).attribs
+            const elementAttrs: { [key: string]: string } = {}
 
             // 属性と値をオブジェクトに格納
             for (const attr in attrs) {

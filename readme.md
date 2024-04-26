@@ -14,3 +14,10 @@ npm run dev
 ```
 http://localhost:8787
 ```
+
+## Test
+
+```bash
+cd htmlparser
+npm test
+```
