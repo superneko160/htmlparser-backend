@@ -30,6 +30,51 @@ describe('getElementAttributes', () => {
     expect(actual).toEqual(expected)
   })
 
+  test('idのみを取得できる', () => {
+    const contents = `
+      <div id="main" class="container">
+        <span style="color: red;">Text</span>
+        <span data-value="12345">Data</span>
+      </div>`
+    const elementNames = ['div', 'span']
+    const expected = {
+      div: [{ id: 'main' }],
+      span: [{}, {}],
+    }
+    const actual = getElementAttributes(contents, elementNames, 'id')
+    expect(actual).toEqual(expected)
+  })
+
+  test('classのみを取得できる', () => {
+    const contents = `
+      <div id="main" class="container">
+        <span style="color: red;">Text</span>
+        <span data-value="12345">Data</span>
+      </div>`
+    const elementNames = ['div', 'span']
+    const expected = {
+      div: [{ class: 'container' }],
+      span: [{}, {}],
+    }
+    const actual = getElementAttributes(contents, elementNames, 'class')
+    expect(actual).toEqual(expected)
+  })
+
+  test('idとclassのみを取得できる', () => {
+    const contents = `
+      <div id="main" class="container">
+        <span style="color: red;">Text</span>
+        <span data-value="12345">Data</span>
+      </div>`
+    const elementNames = ['div', 'span']
+    const expected = {
+      div: [{ id: 'main', class: 'container' }],
+      span: [{}, {}],
+    }
+    const actual = getElementAttributes(contents, elementNames, 'idAndClass')
+    expect(actual).toEqual(expected)
+  })
+
   test('存在しない要素名を指定した場合は空の配列を返す', () => {
     const contents = '<div>Content</div>';
     const elementNames = ['div', 'span', 'p'];
