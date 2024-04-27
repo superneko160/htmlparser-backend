@@ -19,6 +19,11 @@ jobs:
           cd htmlparser
           npm ci
 
+      - name: Run tests  # テストを実行
+        run: |
+          cd htmlparser
+          npm test
+
       - name: Deploy
         uses: cloudflare/wrangler-action@v3  # このステップでCloudflareのWrangler Actionを使用
         with:
