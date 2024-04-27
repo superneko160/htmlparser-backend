@@ -1,6 +1,5 @@
 import * as cheerio from 'cheerio'
-
-type AttributeOption = 'all' | 'id' | 'class' | 'idAndClass'
+import type { AttributeOption } from './../types/types'
 
 /**
  * 指定した要素名の属性と値を取得する関数

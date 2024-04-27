@@ -1,6 +1,8 @@
 import { Hono } from 'hono'
 import { html } from 'hono/html'
 import { validator } from 'hono/validator'
+import type { AttributeOption } from './types/types'
+import { getAttributeOption } from './utils/attributeHelpers'
 import { splitString } from './utils/splitString'
 import { getElementAttributes } from './utils/getElements'
 
@@ -19,6 +21,8 @@ app.get('/', (c) => {
                     <form action="/parse" method="post">
                         URL:<input type="url" name="url"><br>
                         要素名：<input type="text" name="elements"><br>
+                        id <input type="checkbox" name="attrs[]" value="id">
+                        class <input type="checkbox" name="attrs[]" value="class"><br>
                         <input type="submit" value="解析">
                     </form>
                 </body>
@@ -48,8 +52,10 @@ app.post('/parse', validator('form', () => {}), async (c) => {
         const contents = await response.text()
         // 要素名の含まれた文字列を配列に分割
         const tags = splitString(body['elements'], [',', '+'])
+        // 取得する属性を判定するオプションを取得
+        const option = getAttributeOption(body['attrs[]'])
 
-        return c.json({ status: 200, data: getElementAttributes(contents, tags) })
+        return c.json({ status: 200, data: getElementAttributes(contents, tags, option) })
     }
     catch (e) {
       return c.json({ status: 500, error: 'Failed to fetch URL' })
