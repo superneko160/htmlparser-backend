@@ -3,7 +3,7 @@ import { html } from 'hono/html'
 import { validator } from 'hono/validator'
 import type { AttributeOption } from './types/types'
 import { getAttributeOption } from './utils/attributeHelpers'
-import { splitString } from './utils/stringHelpers'
+import { splitString, removeWhitespace } from './utils/stringHelpers'
 import { getElementAttributes } from './utils/getElements'
 
 const app = new Hono()
@@ -34,24 +34,26 @@ app.get('/', (c) => {
 app.post('/parse', validator('form', () => {}), async (c) => {
     // POSTデータ取得
     const body = await c.req.parseBody()
+    const url = removeWhitespace(body['url'])
+    const elements = removeWhitespace(body['elements'])
 
     // URLのバリデーション
     const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w?=.-]*)*\/?$/
-    if (!urlPattern.test(body['url'])) {
+    if (!urlPattern.test(url)) {
         return c.json({ status: 400, error: 'Invalid URL' })
     }
     // 要素名のバリデーション
     const elementPattern = /^[a-zA-Z0-9,+]+$/
-    if (!elementPattern.test(body['elements'])) {
+    if (!elementPattern.test(elements)) {
         return c.json({ status: 400, error: 'Invalid element names' })
     }
 
     try {
         // URLからコンテンツ取得
-        const response = await fetch(body['url'])
+        const response = await fetch(url)
         const contents = await response.text()
         // 要素名の含まれた文字列を配列に分割
-        const tags = splitString(body['elements'], [',', '+'])
+        const tags = splitString(elements, [',', '+'])
         // 取得する属性を判定するオプションを取得
         const attributes = getAttributeOption(body['attrs[]'])
 

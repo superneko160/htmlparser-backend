@@ -29,3 +29,12 @@ export function splitString(input: string, separators: string[]): string[] {
 
     return result
 }
+
+/**
+ * 空白を除去した文字列の取得
+ * @param {string} str 対象文字列
+ * @return {string} 空白除去後の文字列
+ */
+export function removeWhitespace(str: string): string {
+    return str.replace(/[\p{Zs}\t\n\r]+/gu, '')
+}
