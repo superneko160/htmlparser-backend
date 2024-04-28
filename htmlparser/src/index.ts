@@ -3,7 +3,7 @@ import { html } from 'hono/html'
 import { validator } from 'hono/validator'
 import type { AttributeOption } from './types/types'
 import { getAttributeOption } from './utils/attributeHelpers'
-import { splitString } from './utils/splitString'
+import { splitString } from './utils/stringHelpers'
 import { getElementAttributes } from './utils/getElements'
 
 const app = new Hono()

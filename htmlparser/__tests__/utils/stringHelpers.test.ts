@@ -1,4 +1,4 @@
-import { splitString } from './../../src/utils/splitString'
+import { splitString } from './../../src/utils/stringHelpers'
 
 describe('splitString', () => {
   test('空文字列を渡した場合は空の配列を返す', () => {
