@@ -77,7 +77,7 @@ describe('getElementAttributes', () => {
 
   test('存在しない要素名を指定した場合は空の配列を返す', () => {
     const contents = '<div>Content</div>';
-    const elementNames = ['div', 'span', 'p'];
+    const elementNames = ['div', 'span', 'p']
     const expected = {
       div: [{}],
       span: [],
@@ -111,4 +111,35 @@ describe('getElementAttributes', () => {
     const actual = getElementAttributes(contents, elementNames)
     expect(actual).toEqual(expected)
   })
+
+  test('includeEmptyがtrueの場合、空のオブジェクトも含まれる', () => {
+    const contents = `
+      <div id="main" class="container">
+        <span style="color: red;">Text</span>
+        <span data-value="12345">Data</span>
+      </div>`
+    const elementNames = ['div', 'span']
+    const expected = {
+      div: [{ id: 'main', class: 'container' }],
+      span: [{}, {}],
+    }
+    const actual = getElementAttributes(contents, elementNames, 'idAndClass', true)
+    expect(actual).toEqual(expected)
+  })
+
+  test('includeEmptyがfalseの場合、空のオブジェクトは含まれない', () => {
+    const contents = `
+      <div id="main" class="container">
+        <span style="color: red;">Text</span>
+        <span data-value="12345">Data</span>
+      </div>`
+    const elementNames = ['div', 'span']
+    const expected = {
+      div: [{ id: 'main', class: 'container' }],
+      span: [],
+    }
+    const actual = getElementAttributes(contents, elementNames, 'idAndClass', false)
+    expect(actual).toEqual(expected)
+  })
+
 })

@@ -53,9 +53,9 @@ app.post('/parse', validator('form', () => {}), async (c) => {
         // 要素名の含まれた文字列を配列に分割
         const tags = splitString(body['elements'], [',', '+'])
         // 取得する属性を判定するオプションを取得
-        const option = getAttributeOption(body['attrs[]'])
+        const attributes = getAttributeOption(body['attrs[]'])
 
-        return c.json({ status: 200, data: getElementAttributes(contents, tags, option) })
+        return c.json({ status: 200, data: getElementAttributes(contents, tags, attributes, false) })
     }
     catch (e) {
       return c.json({ status: 500, error: 'Failed to fetch URL' })
