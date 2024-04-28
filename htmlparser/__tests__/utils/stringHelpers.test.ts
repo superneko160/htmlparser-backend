@@ -1,4 +1,4 @@
-import { splitString } from './../../src/utils/stringHelpers'
+import { splitString, removeWhitespace } from './../../src/utils/stringHelpers'
 
 describe('splitString', () => {
   test('空文字列を渡した場合は空の配列を返す', () => {
@@ -24,5 +24,19 @@ describe('splitString', () => {
     const actual = splitString(input, separators)
     expect(actual).toEqual(expected)
   })
+})
 
+describe("removeWhitespace", () => {
+  test("文字列から空白を除去", () => {
+    const cases = [
+      { input: " Hello   World ", expected: "HelloWorld" },  // 半角スペース
+      { input: "　　Hello　World　　", expected: "HelloWorld" },  // 全角スペース
+      { input: "Hello\n\tWorld\r", expected: "HelloWorld" },  // 改行、タブ、復帰
+      { input: "   ", expected: "" },  // 空白文字のみ
+      { input: "", expected: "" },  // 空文字列
+    ]
+    cases.forEach(({ input, expected }) => {
+      expect(removeWhitespace(input)).toBe(expected);
+    })
+  })
 })
