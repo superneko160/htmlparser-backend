@@ -31,7 +31,7 @@ app.get('/', (c) => {
 })
 
 // HTML解析処理
-app.post('/parse', validator('form', () => {}), async (c) => {
+app.post("/parse", validator('form', () => {}), async (c) => {
     // POSTデータ取得
     const body = await c.req.parseBody()
     const url = removeWhitespace(body['url'])
