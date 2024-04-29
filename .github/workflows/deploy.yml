@@ -36,6 +36,11 @@ jobs:
           git add .
           git commit -m 'style:Format code' || echo 'No changes to commit'
 
+      - name: Push formatted code  # フォーマットを適用したコードをプッシュ
+        if: success()  # フォーマットとコミットが成功した場合のみプッシュ
+        run: |
+          git push
+
       - name: Deploy
         uses: cloudflare/wrangler-action@v3  # このステップでCloudflareのWrangler Actionを使用
         with:
