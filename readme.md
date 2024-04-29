@@ -21,3 +21,9 @@ http://localhost:8787
 cd htmlparser
 npm test
 ```
+
+## Lint
+```bash
+cd htmlparser
+npm lint
+```
