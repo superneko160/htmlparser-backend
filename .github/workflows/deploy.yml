@@ -31,7 +31,8 @@ jobs:
 
       - name: Commit formatted code  # フォーマットを適用したコードをコミット
         run: |
-          git config --global user.name 'GitHub Actions'
+          git config user.name 'GitHub Actions'
+          git config user.email "github-actions@example.com"
           git add .
           git commit -m 'style:Format code' || echo 'No changes to commit'
 
