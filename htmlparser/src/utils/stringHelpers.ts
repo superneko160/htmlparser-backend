@@ -5,7 +5,6 @@
  * @return {string[]} 分割した値を格納したリスト
  */
 export function splitString(input: string, separators: string[]): string[] {
-
     const result: string[] = []
     let currentToken = ''
 
@@ -17,8 +16,7 @@ export function splitString(input: string, separators: string[]): string[] {
                 result.push(currentToken)
                 currentToken = ''
             }
-        }
-        else {
+        } else {
             currentToken += char
         }
     }
