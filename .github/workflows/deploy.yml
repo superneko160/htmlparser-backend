@@ -24,6 +24,17 @@ jobs:
           cd htmlparser
           npm test
 
+      - name: Format code  # フォーマットを適用
+        run: |
+          cd htmlparser
+          npm run format
+
+      - name: Commit formatted code  # フォーマットを適用したコードをコミット
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git add .
+          git commit -m 'style:Format code' || echo 'No changes to commit'
+
       - name: Deploy
         uses: cloudflare/wrangler-action@v3  # このステップでCloudflareのWrangler Actionを使用
         with:

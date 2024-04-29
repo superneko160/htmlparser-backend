@@ -13,15 +13,13 @@ export function getElementAttributes(
     contents: string,
     elementNames: string[],
     attributeNames: AttributeOption = 'all',
-    includeEmpty: boolean = true
+    includeEmpty: boolean = true,
 ): { [key: string]: Object[] } {
-
     const $ = cheerio.load(contents)
 
     const data: { [key: string]: Object[] } = {}
 
     elementNames.forEach(elementName => {
-
         const attributes: Object[] = []
 
         // 指定した要素名の要素を探索
@@ -55,17 +53,16 @@ export function getElementAttributes(
  * @return {(attr: string) => boolean} 属性を抽出するか否か判定する関数
  */
 function getShouldExtractAttributeFunction(
-    attributeNames: AttributeOption
+    attributeNames: AttributeOption,
 ): (attr: string) => boolean {
-
     switch (attributeNames) {
-      case 'all':
-        return () => true
-      case 'id':
-        return (attr) => attr === 'id'
-      case 'class':
-        return (attr) => attr === 'class'
-      case 'idAndClass':
-        return (attr) => attr === 'id' || attr === 'class'
+        case 'all':
+            return () => true
+        case 'id':
+            return attr => attr === 'id'
+        case 'class':
+            return attr => attr === 'class'
+        case 'idAndClass':
+            return attr => attr === 'id' || attr === 'class'
     }
 }
