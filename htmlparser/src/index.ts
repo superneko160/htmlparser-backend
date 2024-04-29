@@ -9,7 +9,7 @@ import { getElementAttributes } from './utils/getElements'
 const app = new Hono()
 
 // 検証用フォーム
-app.get('/', (c) => {
+app.get('/', c => {
     return c.html(
         html`<!doctype html>
             <html lang="ja">
@@ -26,42 +26,48 @@ app.get('/', (c) => {
                         <input type="submit" value="解析">
                     </form>
                 </body>
-            </html>`
+            </html>`,
     )
 })
 
 // HTML解析処理
-app.post("/parse", validator('form', () => {}), async (c) => {
-    // POSTデータ取得
-    const body = await c.req.parseBody()
-    const url = removeWhitespace(body['url'])
-    const elements = removeWhitespace(body['elements'])
+app.post(
+    '/parse',
+    validator('form', () => {}),
+    async c => {
+        // POSTデータ取得
+        const body = await c.req.parseBody()
+        const url = removeWhitespace(body['url'])
+        const elements = removeWhitespace(body['elements'])
 
-    // URLのバリデーション
-    const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w?=.-]*)*\/?$/
-    if (!urlPattern.test(url)) {
-        return c.json({ status: 400, error: 'Invalid URL' })
-    }
-    // 要素名のバリデーション
-    const elementPattern = /^[a-zA-Z0-9,+]+$/
-    if (!elementPattern.test(elements)) {
-        return c.json({ status: 400, error: 'Invalid element names' })
-    }
+        // URLのバリデーション
+        const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w?=.-]*)*\/?$/
+        if (!urlPattern.test(url)) {
+            return c.json({ status: 400, error: 'Invalid URL' })
+        }
+        // 要素名のバリデーション
+        const elementPattern = /^[a-zA-Z0-9,+]+$/
+        if (!elementPattern.test(elements)) {
+            return c.json({ status: 400, error: 'Invalid element names' })
+        }
 
-    try {
-        // URLからコンテンツ取得
-        const response = await fetch(url)
-        const contents = await response.text()
-        // 要素名の含まれた文字列を配列に分割
-        const tags = splitString(elements, [',', '+'])
-        // 取得する属性を判定するオプションを取得
-        const attributes = getAttributeOption(body['attrs[]'])
+        try {
+            // URLからコンテンツ取得
+            const response = await fetch(url)
+            const contents = await response.text()
+            // 要素名の含まれた文字列を配列に分割
+            const tags = splitString(elements, [',', '+'])
+            // 取得する属性を判定するオプションを取得
+            const attributes = getAttributeOption(body['attrs[]'])
 
-        return c.json({ status: 200, data: getElementAttributes(contents, tags, attributes, false) })
-    }
-    catch (e) {
-      return c.json({ status: 500, error: 'Failed to fetch URL' })
-    }
-})
+            return c.json({
+                status: 200,
+                data: getElementAttributes(contents, tags, attributes, false),
+            })
+        } catch (e) {
+            return c.json({ status: 500, error: 'Failed to fetch URL' })
+        }
+    },
+)
 
 export default app
