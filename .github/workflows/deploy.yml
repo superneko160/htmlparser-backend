@@ -1,48 +1,56 @@
----
-
-name: Deploy  # ワークフローの名前
+name: CI/CD
 
 on:
   push:
     branches:
-      - main  # mainブランチにプッシュされた時に実行
+      - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest  # ジョブをubuntu-latestランナー上で実行
-    name: Deploy
+
+  format:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4  # GitHubリポジトリをチェックアウト
+    - uses: actions/checkout@v4
+    - name: Install dependencies
+      run: |
+        cd htmlparser
+        npm ci
+    - name: Format code
+      run: |
+        cd htmlparser
+        npm run format
+    - name: Commit formatted code
+      run: |
+        git config user.name 'GitHub Actions'
+        git config user.email "github-actions@example.com"
+        git add .
+        git commit -m 'style:Format code' || echo 'No changes to commit'
+    - name: Push formatted code
+      if: success()
+      run: |
+        git push
 
-      - name: Install dependencies  # 依存モジュールのインストール
-        run: |
-          cd htmlparser
-          npm ci
+  test:
+    needs: format
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install dependencies
+      run: |
+        cd htmlparser
+        npm ci
+    - name: Run tests
+      run: |
+        cd htmlparser
+        npm test
 
-      - name: Run tests  # テストを実行
-        run: |
-          cd htmlparser
-          npm test
-
-      - name: Format code  # フォーマットを適用
-        run: |
-          cd htmlparser
-          npm run format
-
-      - name: Commit formatted code  # フォーマットを適用したコードをコミット
-        run: |
-          git config user.name 'GitHub Actions'
-          git config user.email "github-actions@example.com"
-          git add .
-          git commit -m 'style:Format code' || echo 'No changes to commit'
-
-      - name: Push formatted code  # フォーマットを適用したコードをプッシュ
-        if: success()  # フォーマットとコミットが成功した場合のみプッシュ
-        run: |
-          git push
-
-      - name: Deploy
-        uses: cloudflare/wrangler-action@v3  # このステップでCloudflareのWrangler Actionを使用
-        with:
-          apiToken: ${{ secrets.CF_TOKEN }}  # Wrangler Actionに渡す引数（Cloudflareの APIトークン）
-          workingDirectory: htmlparser
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Deploy
+      uses: cloudflare/wrangler-action@v3
+      with:
+        apiToken: ${{ secrets.CF_TOKEN }}
+        workingDirectory: htmlparser
