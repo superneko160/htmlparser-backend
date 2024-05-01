@@ -5,6 +5,7 @@ import type { AttributeOption } from './types/types'
 import { getAttributeOption } from './utils/attributeHelpers'
 import { splitString, removeWhitespace } from './utils/stringHelpers'
 import { getElementAttributes } from './utils/getElements'
+import { matchesUrlPattern, matchesElementNamePattern } from './utils/validators'
 
 const app = new Hono()
 
@@ -41,15 +42,9 @@ app.post(
         const elements = removeWhitespace(body['elements'])
 
         // URLのバリデーション
-        const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w?=.-]*)*\/?$/
-        if (!urlPattern.test(url)) {
-            return c.json({ status: 400, error: 'Invalid URL' })
-        }
+        if (!matchesUrlPattern(url)) return c.json({ status: 400, error: 'Invalid URL' })
         // 要素名のバリデーション
-        const elementPattern = /^[a-zA-Z0-9,+]+$/
-        if (!elementPattern.test(elements)) {
-            return c.json({ status: 400, error: 'Invalid element names' })
-        }
+        if (!matchesElementNamePattern(elements)) return c.json({ status: 400, error: 'Invalid element names' })
 
         try {
             // URLからコンテンツ取得
