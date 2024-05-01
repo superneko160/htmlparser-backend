@@ -44,7 +44,8 @@ app.post(
         // URLのバリデーション
         if (!matchesUrlPattern(url)) return c.json({ status: 400, error: 'Invalid URL' })
         // 要素名のバリデーション
-        if (!matchesElementNamePattern(elements)) return c.json({ status: 400, error: 'Invalid element names' })
+        if (!matchesElementNamePattern(elements))
+            return c.json({ status: 400, error: 'Invalid element names' })
 
         try {
             // URLからコンテンツ取得
