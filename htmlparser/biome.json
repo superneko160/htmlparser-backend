@@ -9,8 +9,7 @@
         "ignore": [".wrangler", "wrangler.json"],
         "indentWidth": 4,
         "indentStyle": "space",
-        "lineWidth": 100,
-        "lineEnding": "lf"
+        "lineWidth": 100
     },
     "javascript": {
         "parser": {

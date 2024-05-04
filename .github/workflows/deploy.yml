@@ -11,14 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
     - name: Install dependencies
-      run: |
-        cd htmlparser
-        npm ci
+      run: bun install
+      working-directory: htmlparser
     - name: Format code
-      run: |
-        cd htmlparser
-        npm run format
+      run: bun run format
+      working-directory: htmlparser
     - name: Commit formatted code
       run: |
         git config user.name 'GitHub Actions'
@@ -35,14 +36,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
     - name: Install dependencies
-      run: |
-        cd htmlparser
-        npm ci
+      run: bun install
+      working-directory: htmlparser
     - name: Run tests
-      run: |
-        cd htmlparser
-        npm test
+      run: bun run test
+      working-directory: htmlparser
 
   deploy:
     needs: test
