@@ -6,7 +6,7 @@ backend app
 
 ```bash
 cd htmlparser
-npm run dev
+bun run dev
 ```
 
 ## Access
@@ -19,11 +19,11 @@ http://localhost:8787
 
 ```bash
 cd htmlparser
-npm test
+bun test
 ```
 
 ## Lint
 ```bash
 cd htmlparser
-npm lint
+bun lint
 ```

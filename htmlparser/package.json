@@ -3,8 +3,8 @@
         "dev": "wrangler dev src/index.ts",
         "deploy": "wrangler deploy --minify src/index.ts",
         "test": "vitest",
-        "lint": "npx @biomejs/biome lint ./src",
-        "format": "npx @biomejs/biome format --write ."
+        "lint": "bunx @biomejs/biome lint ./src",
+        "format": "bunx @biomejs/biome format --write ."
     },
     "dependencies": {
         "cheerio": "^1.0.0-rc.12",
