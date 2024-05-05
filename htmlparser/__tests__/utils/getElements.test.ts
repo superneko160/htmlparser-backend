@@ -1,7 +1,7 @@
 import { getElementAttributes } from './../../src/utils/getElements'
 
 describe('getElementAttributes', () => {
-    test('空のHTMLコンテンツを渡した場合は空のオブジェクトを返す', () => {
+    it('空のHTMLコンテンツを渡した場合は空のオブジェクトを返す', () => {
         const contents = ''
         const elementNames = ['div', 'span']
         const expected = {
@@ -12,7 +12,7 @@ describe('getElementAttributes', () => {
         expect(actual).toEqual(expected)
     })
 
-    test('指定した要素名の属性と値を取得できる', () => {
+    it('指定した要素名の属性と値を取得できる', () => {
         const contents = `
       <div id="main" class="container">
         <span style="color: red;">Text</span>
@@ -27,7 +27,7 @@ describe('getElementAttributes', () => {
         expect(actual).toEqual(expected)
     })
 
-    test('idのみを取得できる', () => {
+    it('idのみを取得できる', () => {
         const contents = `
       <div id="main" class="container">
         <span style="color: red;">Text</span>
@@ -42,7 +42,7 @@ describe('getElementAttributes', () => {
         expect(actual).toEqual(expected)
     })
 
-    test('classのみを取得できる', () => {
+    it('classのみを取得できる', () => {
         const contents = `
       <div id="main" class="container">
         <span style="color: red;">Text</span>
@@ -57,7 +57,7 @@ describe('getElementAttributes', () => {
         expect(actual).toEqual(expected)
     })
 
-    test('idとclassのみを取得できる', () => {
+    it('idとclassのみを取得できる', () => {
         const contents = `
       <div id="main" class="container">
         <span style="color: red;">Text</span>
@@ -72,7 +72,7 @@ describe('getElementAttributes', () => {
         expect(actual).toEqual(expected)
     })
 
-    test('存在しない要素名を指定した場合は空の配列を返す', () => {
+    it('存在しない要素名を指定した場合は空の配列を返す', () => {
         const contents = '<div>Content</div>'
         const elementNames = ['div', 'span', 'p']
         const expected = {
@@ -84,7 +84,7 @@ describe('getElementAttributes', () => {
         expect(actual).toEqual(expected)
     })
 
-    test('複数の要素が存在する場合は全ての属性を取得する', () => {
+    it('複数の要素が存在する場合は全ての属性を取得する', () => {
         const contents = `
       <div id="main" class="container">
         <span style="color: red;">Text</span>
@@ -102,7 +102,7 @@ describe('getElementAttributes', () => {
         expect(actual).toEqual(expected)
     })
 
-    test('includeEmptyがtrueの場合、空のオブジェクトも含まれる', () => {
+    it('includeEmptyがtrueの場合、空のオブジェクトも含まれる', () => {
         const contents = `
       <div id="main" class="container">
         <span style="color: red;">Text</span>
@@ -117,7 +117,7 @@ describe('getElementAttributes', () => {
         expect(actual).toEqual(expected)
     })
 
-    test('includeEmptyがfalseの場合、空のオブジェクトは含まれない', () => {
+    it('includeEmptyがfalseの場合、空のオブジェクトは含まれない', () => {
         const contents = `
       <div id="main" class="container">
         <span style="color: red;">Text</span>
