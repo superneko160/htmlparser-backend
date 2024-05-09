@@ -1,4 +1,4 @@
-import type { AttributeOption } from './../types/types'
+import type { AttributeOption } from './../types'
 
 /**
  * 属性名の配列から属性オプションを取得

@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { html } from 'hono/html'
 import { validator } from 'hono/validator'
-import type { AttributeOption } from './types/types'
+import type { AttributeOption } from './types'
 import { getAttributeOption } from './utils/attributeHelpers'
 import { splitString, removeWhitespace } from './utils/stringHelpers'
 import { getElementAttributes } from './utils/getElements'

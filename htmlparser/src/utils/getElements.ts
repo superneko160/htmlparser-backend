@@ -1,5 +1,5 @@
 import * as cheerio from 'cheerio'
-import type { AttributeOption, ElementAttributes, ElementAttributesMap } from './../types/types'
+import type { AttributeOption, ElementAttributes, ElementAttributesMap } from './../types'
 
 /**
  * 指定した要素名の属性と値を取得
