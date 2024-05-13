@@ -1,7 +1,6 @@
 import { Hono } from 'hono'
 import { html } from 'hono/html'
 import { validator } from 'hono/validator'
-import type { AttributeOption } from './types'
 import { getAttributeOption } from './utils/attributeHelpers'
 import { splitString, removeWhitespace } from './utils/stringHelpers'
 import { getElementAttributes } from './utils/getElements'
@@ -37,18 +36,22 @@ app.get('/', c => {
 // HTML解析処理
 app.post(
     '/parse',
-    validator('form', () => {}),
+    validator('form', async (value, c) => {
+        const url = removeWhitespace(value.url)
+        const elements = removeWhitespace(value.elements)
+
+        if (!matchesUrlPattern(url)) return c.json({ status: 400, error: 'Invalid URL' })
+
+        if (!matchesElementNamePattern(elements))
+            return c.json({ status: 400, error: 'Invalid element names' })
+
+        return value
+    }),
     async c => {
         // POSTデータ取得
         const body = await c.req.parseBody()
-        const url = removeWhitespace(body['url'])
-        const elements = removeWhitespace(body['elements'])
-
-        // URLのバリデーション
-        if (!matchesUrlPattern(url)) return c.json({ status: 400, error: 'Invalid URL' })
-        // 要素名のバリデーション
-        if (!matchesElementNamePattern(elements))
-            return c.json({ status: 400, error: 'Invalid element names' })
+        const { url, elements } = body
+        const attrs = body['attrs[]']
 
         try {
             // URLからコンテンツ取得
@@ -57,7 +60,7 @@ app.post(
             // 要素名の含まれた文字列を配列に分割
             const tags = splitString(elements, [',', '+'])
             // 取得する属性を判定するオプションを取得
-            const attributes = getAttributeOption(body['attrs[]'])
+            const attributes = getAttributeOption(attrs)
 
             const data = getElementAttributes(contents, tags, attributes, false)
 
@@ -74,18 +77,22 @@ app.post(
 // HTML解析結果のJSONファイルをダウンロード
 app.post(
     '/parse/json',
-    validator('form', () => {}),
+    validator('form', async (value, c) => {
+        const url = removeWhitespace(value.url)
+        const elements = removeWhitespace(value.elements)
+
+        if (!matchesUrlPattern(url)) return c.json({ status: 400, error: 'Invalid URL' })
+
+        if (!matchesElementNamePattern(elements))
+            return c.json({ status: 400, error: 'Invalid element names' })
+
+        return value
+    }),
     async c => {
         // POSTデータ取得
         const body = await c.req.parseBody()
-        const url = removeWhitespace(body['url'])
-        const elements = removeWhitespace(body['elements'])
-
-        // URLのバリデーション
-        if (!matchesUrlPattern(url)) return c.json({ status: 400, error: 'Invalid URL' })
-        // 要素名のバリデーション
-        if (!matchesElementNamePattern(elements))
-            return c.json({ status: 400, error: 'Invalid element names' })
+        const { url, elements } = body
+        const attrs = body['attrs[]']
 
         try {
             // URLからコンテンツ取得
@@ -94,7 +101,7 @@ app.post(
             // 要素名の含まれた文字列を配列に分割
             const tags = splitString(elements, [',', '+'])
             // 取得する属性を判定するオプションを取得
-            const attributes = getAttributeOption(body['attrs[]'])
+            const attributes = getAttributeOption(attrs)
 
             const data = getElementAttributes(contents, tags, attributes, false)
             const jsonData = JSON.stringify(data, null, 2)
@@ -112,18 +119,22 @@ app.post(
 // HTML解析結果のCSVファイルをダウンロード
 app.post(
     '/parse/csv',
-    validator('form', () => {}),
+    validator('form', async (value, c) => {
+        const url = removeWhitespace(value.url)
+        const elements = removeWhitespace(value.elements)
+
+        if (!matchesUrlPattern(url)) return c.json({ status: 400, error: 'Invalid URL' })
+
+        if (!matchesElementNamePattern(elements))
+            return c.json({ status: 400, error: 'Invalid element names' })
+
+        return value
+    }),
     async c => {
         // POSTデータ取得
         const body = await c.req.parseBody()
-        const url = removeWhitespace(body['url'])
-        const elements = removeWhitespace(body['elements'])
-
-        // URLのバリデーション
-        if (!matchesUrlPattern(url)) return c.json({ status: 400, error: 'Invalid URL' })
-        // 要素名のバリデーション
-        if (!matchesElementNamePattern(elements))
-            return c.json({ status: 400, error: 'Invalid element names' })
+        const { url, elements } = body
+        const attrs = body['attrs[]']
 
         try {
             // URLからコンテンツ取得
@@ -132,7 +143,7 @@ app.post(
             // 要素名の含まれた文字列を配列に分割
             const tags = splitString(elements, [',', '+'])
             // 取得する属性を判定するオプションを取得
-            const attributes = getAttributeOption(body['attrs[]'])
+            const attributes = getAttributeOption(attrs)
 
             const data = getElementAttributes(contents, tags, attributes, false)
             const csvData = convertToCSV(data)
