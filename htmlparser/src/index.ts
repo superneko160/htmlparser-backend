@@ -59,9 +59,11 @@ app.post(
             // 取得する属性を判定するオプションを取得
             const attributes = getAttributeOption(body['attrs[]'])
 
+            const data = getElementAttributes(contents, tags, attributes, false)
+
             return c.json({
                 status: 200,
-                data: getElementAttributes(contents, tags, attributes, false),
+                data: data,
             })
         } catch (e) {
             return c.json({ status: 500, error: 'Failed to fetch URL' })
@@ -95,9 +97,9 @@ app.post(
             const attributes = getAttributeOption(body['attrs[]'])
 
             const data = getElementAttributes(contents, tags, attributes, false)
-            const json = JSON.stringify(data, null, 2)
+            const jsonData = JSON.stringify(data, null, 2)
 
-            return c.body(json, 200, {
+            return c.body(jsonData, 200, {
                 'Content-Type': 'application/json',
                 'Content-Disposition': 'attachment; filename="result.json"',
             })
