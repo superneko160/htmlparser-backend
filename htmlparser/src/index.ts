@@ -3,6 +3,7 @@ import { html } from 'hono/html'
 import { validator } from 'hono/validator'
 import { getAttributeOption } from './utils/attributeHelpers'
 import { splitString, removeWhitespace } from './utils/stringHelpers'
+import { prepareElementAttributes } from './utils/prepareElements'
 import { getElementAttributes } from './utils/getElements'
 import { matchesUrlPattern, matchesElementNamePattern } from './utils/validators'
 import { convertToCSV } from './utils/csvConverter'
@@ -48,19 +49,16 @@ app.post(
         return value
     }),
     async c => {
-        // POSTデータ取得
         const body = await c.req.parseBody()
         const { url, elements } = body
         const attrs = body['attrs[]']
 
         try {
-            // URLからコンテンツ取得
-            const response = await fetch(url)
-            const contents = await response.text()
-            // 要素名の含まれた文字列を配列に分割
-            const tags = splitString(elements, [',', '+'])
-            // 取得する属性を判定するオプションを取得
-            const attributes = getAttributeOption(attrs)
+            const { contents, tags, attributes } = await prepareElementAttributes(
+                url,
+                elements,
+                attrs,
+            )
 
             const data = getElementAttributes(contents, tags, attributes, false)
 
@@ -89,19 +87,16 @@ app.post(
         return value
     }),
     async c => {
-        // POSTデータ取得
         const body = await c.req.parseBody()
         const { url, elements } = body
         const attrs = body['attrs[]']
 
         try {
-            // URLからコンテンツ取得
-            const response = await fetch(url)
-            const contents = await response.text()
-            // 要素名の含まれた文字列を配列に分割
-            const tags = splitString(elements, [',', '+'])
-            // 取得する属性を判定するオプションを取得
-            const attributes = getAttributeOption(attrs)
+            const { contents, tags, attributes } = await prepareElementAttributes(
+                url,
+                elements,
+                attrs,
+            )
 
             const data = getElementAttributes(contents, tags, attributes, false)
             const jsonData = JSON.stringify(data, null, 2)
@@ -131,19 +126,16 @@ app.post(
         return value
     }),
     async c => {
-        // POSTデータ取得
         const body = await c.req.parseBody()
         const { url, elements } = body
         const attrs = body['attrs[]']
 
         try {
-            // URLからコンテンツ取得
-            const response = await fetch(url)
-            const contents = await response.text()
-            // 要素名の含まれた文字列を配列に分割
-            const tags = splitString(elements, [',', '+'])
-            // 取得する属性を判定するオプションを取得
-            const attributes = getAttributeOption(attrs)
+            const { contents, tags, attributes } = await prepareElementAttributes(
+                url,
+                elements,
+                attrs,
+            )
 
             const data = getElementAttributes(contents, tags, attributes, false)
             const csvData = convertToCSV(data)
