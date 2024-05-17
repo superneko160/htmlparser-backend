@@ -1,4 +1,4 @@
-import { getElementAttributes } from './../../src/utils/getElements'
+import { getElementAttributes } from './../../src/parsers/getElements'
 
 describe('getElementAttributes', () => {
     it('空のHTMLコンテンツを渡した場合は空のオブジェクトを返す', () => {

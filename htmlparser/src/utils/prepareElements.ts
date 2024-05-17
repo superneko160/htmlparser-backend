@@ -1,6 +1,6 @@
 import type { PreparedElementAttributes } from './../types'
-import { getAttributeOption } from './attributeHelpers'
-import { splitString } from './stringHelpers'
+import { getAttributeOption } from './../helpers/attributeHelpers'
+import { splitString } from './../helpers/stringHelpers'
 
 /**
  * 指定されたURLからコンテンツを取得し、要素名の文字列を分割し、属性オプションを準備

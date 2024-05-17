@@ -1,11 +1,11 @@
 import { Hono } from 'hono'
 import { html } from 'hono/html'
 import { validator } from 'hono/validator'
-import { getAttributeOption } from './utils/attributeHelpers'
-import { splitString, removeWhitespace } from './utils/stringHelpers'
+import { getAttributeOption } from './helpers/attributeHelpers'
+import { splitString, removeWhitespace } from './helpers/stringHelpers'
 import { prepareElementAttributes } from './utils/prepareElements'
-import { getElementAttributes } from './utils/getElements'
-import { matchesUrlPattern, matchesElementNamePattern } from './utils/validators'
+import { getElementAttributes } from './parsers/getElements'
+import { matchesUrlPattern, matchesElementNamePattern } from './validators'
 import { convertToCSV } from './utils/csvConverter'
 
 const app = new Hono()
