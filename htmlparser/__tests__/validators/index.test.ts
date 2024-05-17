@@ -1,4 +1,4 @@
-import { matchesUrlPattern, matchesElementNamePattern } from './../../src/utils/validators'
+import { matchesUrlPattern, matchesElementNamePattern } from './../../src/validators'
 
 describe('matchesUrlPattern', () => {
     it('有効なURLの場合はtrueを返す', () => {

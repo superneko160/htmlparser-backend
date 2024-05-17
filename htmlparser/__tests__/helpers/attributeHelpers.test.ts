@@ -1,4 +1,4 @@
-import { getAttributeOption } from './../../src/utils/attributeHelpers'
+import { getAttributeOption } from './../../src/helpers/attributeHelpers'
 
 describe('getAttributeOption', () => {
     it('"id"と"class"の両方が含まれる場合は"idAndClass"を返す', () => {

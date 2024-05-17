@@ -1,4 +1,4 @@
-import { splitString, removeWhitespace } from './../../src/utils/stringHelpers'
+import { splitString, removeWhitespace } from './../../src/helpers/stringHelpers'
 
 describe('splitString', () => {
     it('空文字列を渡した場合は空の配列を返す', () => {
