@@ -5,27 +5,33 @@
  * @return {string[]} 分割した値を格納したリスト
  */
 export function splitString(input: string, separators: string[]): string[] {
-    const result: string[] = []
+    let tokens: string[] = []
     let currentToken = ''
 
-    for (let i = 0; i < input.length; i++) {
-        const char = input[i]
-
+    for (const char of input) {
         if (separators.includes(char)) {
-            if (currentToken !== '') {
-                result.push(currentToken)
-                currentToken = ''
-            }
+            tokens = addTokenToList(tokens, currentToken)
+            currentToken = ''
         } else {
             currentToken += char
         }
     }
 
-    if (currentToken !== '') {
-        result.push(currentToken)
-    }
+    tokens = addTokenToList(tokens, currentToken)
+    return tokens
+}
 
-    return result
+/**
+ * トークンをリストに追加する場合は新しいリストを返す
+ * @param {string[]} tokens トークンを格納するリスト
+ * @param {string} currentToken 現在のトークン
+ * @return {string[]} トークンが追加された新しいリスト
+ */
+function addTokenToList(tokens: string[], currentToken: string): string[] {
+    if (currentToken !== '') {
+        return [...tokens, currentToken]
+    }
+    return tokens
 }
 
 /**
