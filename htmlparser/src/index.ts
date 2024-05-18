@@ -1,14 +1,22 @@
 import { Hono } from 'hono'
 import { html } from 'hono/html'
 import { validator } from 'hono/validator'
+import type { FetchDependencies } from './types'
 import { getAttributeOption } from './helpers/attributeHelpers'
 import { splitString, removeWhitespace } from './helpers/stringHelpers'
+import { fetchUrl } from './utils/fetchUrl'
 import { prepareElementAttributes } from './utils/prepareElements'
 import { getElementAttributes } from './parsers/getElements'
 import { matchesUrlPattern, matchesElementNamePattern } from './validators'
 import { convertToCSV } from './utils/csvConverter'
 
 const app = new Hono()
+
+const fetchDeps: FetchDependencies = {
+    fetchUrl,
+    splitString,
+    getAttributeOption,
+}
 
 // 検証用フォーム
 app.get('/', c => {
@@ -58,6 +66,7 @@ app.post(
                 url,
                 elements,
                 attrs,
+                fetchDeps,
             )
 
             const data = getElementAttributes(contents, tags, attributes, false)
@@ -96,6 +105,7 @@ app.post(
                 url,
                 elements,
                 attrs,
+                fetchDeps,
             )
 
             const data = getElementAttributes(contents, tags, attributes, false)
@@ -135,6 +145,7 @@ app.post(
                 url,
                 elements,
                 attrs,
+                fetchDeps,
             )
 
             const data = getElementAttributes(contents, tags, attributes, false)

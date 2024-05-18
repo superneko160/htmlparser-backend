@@ -5,7 +5,11 @@
         "moduleResolution": "Bundler",
         "strict": true,
         "lib": ["ESNext"],
-        "types": ["@cloudflare/workers-types", "jest"],
+        "types": [
+            "@cloudflare/workers-types",
+            "vitest/globals",
+            "jest"
+        ],
         "jsx": "react-jsx",
         "jsxImportSource": "hono/jsx",
         "esModuleInterop": true
