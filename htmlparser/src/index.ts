@@ -17,9 +17,9 @@ const app = new Hono()
 app.use(
     '/parse/*',
     cors({
-        origin: '*',  // 許可するオリジン
-        allowMethods: ['POST'],  // 許可するHTTPメソッド
-        allowHeaders: ['Content-Type'],  // 許可するヘッダ
+        origin: '*', // 許可するオリジン
+        allowMethods: ['POST'], // 許可するHTTPメソッド
+        allowHeaders: ['Content-Type'], // 許可するヘッダ
     }),
 )
 
