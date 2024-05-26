@@ -8,7 +8,7 @@ A WebAPI to parse HTML and inspect attributes of elements.
 
 ## Usage
 
-| Result | Request | URL |
+| Result | Request Method | URL |
 | ---- | ---- | ---- |
 | Return JSON | POST | ```https://htmlparser.supernekocat31.workers.dev/parse``` |
 | Download JSON | POST | ```https://htmlparser.supernekocat31.workers.dev/parse/json``` |
