@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import { html } from 'hono/html'
+import { cors } from 'hono/cors'
 import { validator } from 'hono/validator'
 import type { FetchDependencies } from './types'
 import { getAttributeOption } from './helpers/attributeHelpers'
@@ -11,6 +12,16 @@ import { matchesUrlPattern, matchesElementNamePattern } from './validators'
 import { convertToCSV } from './utils/csvConverter'
 
 const app = new Hono()
+
+// CORSミドルウェアを適用
+app.use(
+    '/parse/*',
+    cors({
+        origin: '*',  // 許可するオリジン
+        allowMethods: ['POST'],  // 許可するHTTPメソッド
+        allowHeaders: ['Content-Type'],  // 許可するヘッダ
+    }),
+)
 
 const fetchDeps: FetchDependencies = {
     fetchUrl,
