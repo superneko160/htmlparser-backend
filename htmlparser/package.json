@@ -9,7 +9,7 @@
     },
     "dependencies": {
         "cheerio": "^1.0.0-rc.12",
-        "hono": "^4.2.6"
+        "hono": "^4.2.7"
     },
     "devDependencies": {
         "@biomejs/biome": "1.7.3",
