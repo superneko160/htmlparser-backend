@@ -1,0 +1,28 @@
+name: バグ報告
+description: 再現可能なバグおよび不具合を報告
+title: '[Bug]'
+labels: []
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: できる限り詳細に、不具合の内容と再現方法を報告してください
+      description: 記述が十分でない場合は close されることがあります。不要な項目は削って構いません
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 周辺環境
+      placeholder: |
+        windows11 Chrome
+    validations:
+      required: true
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: 現在の挙動
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: 期待される挙動
