@@ -1,7 +1,7 @@
 name: 🚀 機能提案
 description: 新しい機能を提案する
 title: '[Feat]'
-labels: []
+labels: ['enhancement']
 body:
   - type: textarea
     id: what

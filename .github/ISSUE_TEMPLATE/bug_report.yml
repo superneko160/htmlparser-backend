@@ -1,7 +1,7 @@
-name: バグ報告
+name: 🔍 バグ報告
 description: 再現可能なバグおよび不具合を報告
 title: '[Bug]'
-labels: []
+labels: ['bug']
 body:
   - type: textarea
     id: description
