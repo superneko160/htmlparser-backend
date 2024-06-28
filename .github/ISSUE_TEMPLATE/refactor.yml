@@ -1,0 +1,23 @@
+name: ✨リファクタリング
+description: バグ修正でも機能追加でもないコード変更
+title: '[refactor] '
+labels: ['enhancement']
+body:
+  - type: textarea
+    id: target_code
+    attributes:
+      label: リファクタリング対象コード
+    validations:
+      required: true
+  - type: textarea
+    id: point_at_issue
+    attributes:
+      label: 現在の問題点
+    validations:
+      required: true
+  - type: textarea
+    id: refactor_code
+    attributes:
+      label: 提案される変更
+    validations:
+      required: true
