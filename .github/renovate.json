@@ -3,9 +3,21 @@
   "extends": [
     "config:base"
   ],
-  "ignorePresets": [":prHourlyLimit2"],
   "timezone": "Asia/Tokyo",
+  "schedule": "before 2pm on Friday",
+  "prHourlyLimit": 2,
+  "rangeStrategy": "bump",
   "dependencyDashboard": false,
-  "automerge": true,
-  "branchConcurrentLimit": 0
+  "packageRules": [
+    {
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
+      "excludePackageNames": [
+        "typescript"
+      ],
+      "groupName": "minor and patch dependencies"
+    }
+  ]
 }
