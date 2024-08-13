@@ -8,14 +8,14 @@
         "format": "bunx @biomejs/biome format --write ."
     },
     "dependencies": {
-        "cheerio": "^1.0.0-rc.12",
-        "hono": "^4.5.3"
+        "cheerio": "^1.0.0",
+        "hono": "^4.5.5"
     },
     "devDependencies": {
         "@biomejs/biome": "1.8.3",
-        "@cloudflare/workers-types": "^4.20240729.0",
+        "@cloudflare/workers-types": "^4.20240806.0",
         "typescript": "^5.4.5",
         "vitest": "^2.0.5",
-        "wrangler": "^3.68.0"
+        "wrangler": "^3.71.0"
     }
 }
