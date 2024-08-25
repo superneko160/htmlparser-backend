@@ -25,7 +25,6 @@ bun install
 ## Run
 
 ```bash
-cd htmlparser
 bun run dev
 ```
 
@@ -38,19 +37,18 @@ http://localhost:8787
 ## Test
 
 ```bash
-cd htmlparser
 bun test
 ```
 
 ## Lint
+
 ```bash
-cd htmlparser
 bun lint
 ```
 
 ## Format
+
 ```bash
-cd htmlparser
 bun format
 ```
 
