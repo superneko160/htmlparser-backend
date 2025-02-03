@@ -9,13 +9,13 @@
     },
     "dependencies": {
         "cheerio": "^1.0.0",
-        "hono": "^4.6.16"
+        "hono": "^4.6.20"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",
-        "@cloudflare/workers-types": "^4.20250109.0",
+        "@cloudflare/workers-types": "^4.20250129.0",
         "typescript": "^5.6.2",
-        "vitest": "^2.1.8",
-        "wrangler": "^3.100.0"
+        "vitest": "^2.1.9",
+        "wrangler": "^3.107.2"
     }
 }
