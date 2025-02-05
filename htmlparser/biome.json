@@ -6,13 +6,7 @@
     "formatter": {
         "enabled": true,
         "formatWithErrors": false,
-        "ignore": [
-            ".wrangler",
-            "wrangler.json",
-            "bun.lock",
-            "bun.lockb",
-            "package-lock.json"
-        ],
+        "ignore": [".wrangler", "wrangler.json", "bun.lock", "bun.lockb", "package-lock.json"],
         "indentWidth": 4,
         "indentStyle": "space",
         "lineWidth": 100
