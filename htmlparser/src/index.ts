@@ -87,6 +87,7 @@ app.post(
                 data: data,
             })
         } catch (e) {
+            console.error(e)
             return c.json({ status: 500, error: 'Failed to fetch URL' })
         }
     },
@@ -127,6 +128,7 @@ app.post(
                 'Content-Disposition': 'attachment; filename="result.json"',
             })
         } catch (e) {
+            console.error(e)
             return c.json({ status: 500, error: 'Failed to fetch URL' })
         }
     },
@@ -167,6 +169,7 @@ app.post(
                 'Content-Disposition': 'attachment; filename="result.csv"',
             })
         } catch (e) {
+            console.error(e)
             return c.json({ status: 500, error: 'Failed to fetch URL' })
         }
     },
