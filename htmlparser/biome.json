@@ -1,12 +1,17 @@
 {
-    "$schema": "https://biomejs.dev/schemas/1.7.1/schema.json",
-    "organizeImports": {
-        "enabled": true
-    },
+    "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+    "assist": { "actions": { "source": { "organizeImports": "on" } } },
     "formatter": {
         "enabled": true,
         "formatWithErrors": false,
-        "ignore": [".wrangler", "wrangler.json", "bun.lock", "bun.lockb", "package-lock.json"],
+        "includes": [
+            "**",
+            "!**/.wrangler",
+            "!**/wrangler.json",
+            "!**/bun.lock",
+            "!**/bun.lockb",
+            "!**/package-lock.json"
+        ],
         "indentWidth": 4,
         "indentStyle": "space",
         "lineWidth": 100
@@ -37,7 +42,19 @@
     "linter": {
         "enabled": true,
         "rules": {
-            "recommended": true
+            "recommended": true,
+            "style": {
+                "noParameterAssign": "error",
+                "useAsConstAssertion": "error",
+                "useDefaultParameterLast": "error",
+                "useEnumInitializers": "error",
+                "useSelfClosingElements": "error",
+                "useSingleVarDeclarator": "error",
+                "noUnusedTemplateLiteral": "error",
+                "useNumberNamespace": "error",
+                "noInferrableTypes": "error",
+                "noUselessElse": "error"
+            }
         }
     }
 }
