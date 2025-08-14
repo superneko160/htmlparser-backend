@@ -10,7 +10,7 @@ jobs:
   format:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - uses: oven-sh/setup-bun@v2
       with:
         bun-version: latest
@@ -35,7 +35,7 @@ jobs:
     needs: format
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - uses: oven-sh/setup-bun@v2
       with:
         bun-version: latest
@@ -50,7 +50,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Deploy
       uses: cloudflare/wrangler-action@v3
       with:
