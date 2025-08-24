@@ -157,7 +157,12 @@ describe('getElementAttributes', () => {
             div: [{ 'data-component': 'header', 'aria-label': 'Main navigation' }],
             button: [{ 'data-action': 'toggle', 'aria-expanded': 'false' }],
         }
-        const actual = getElementAttributes(contents, elementNames, ['data-component', 'aria-label', 'data-action', 'aria-expanded'])
+        const actual = getElementAttributes(contents, elementNames, [
+            'data-component',
+            'aria-label',
+            'data-action',
+            'aria-expanded',
+        ])
         expect(actual).toEqual(expected)
     })
 })

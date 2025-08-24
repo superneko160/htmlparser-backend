@@ -17,14 +17,14 @@ export async function prepareElementAttributes(
     const { fetchUrl, splitString, getAttributeOption } = fetchDeps
     const contents = await fetchUrl(url)
     const tags = splitString(elements, [',', '+'])
-    
+
     let processedAttrs: string | string[] = attrs
-    
+
     // フォームから来た場合（配列の場合）の処理
     if (Array.isArray(attrs)) {
         processedAttrs = attrs.length > 0 ? attrs : 'all'
     }
-    
+
     const attributes = getAttributeOption(processedAttrs)
 
     return { contents, tags, attributes }
