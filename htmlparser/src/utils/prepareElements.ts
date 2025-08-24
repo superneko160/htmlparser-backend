@@ -11,17 +11,21 @@ import type { PreparedElementAttributes, FetchDependencies } from './../types'
 export async function prepareElementAttributes(
     url: string,
     elements: string,
-    attrs: string,
+    attrs: string | string[], // 文字列または文字列配列を受け取る
     fetchDeps: FetchDependencies,
 ): PreparedElementAttributes {
     const { fetchUrl, splitString, getAttributeOption } = fetchDeps
-
-    // URLからコンテンツ取得
     const contents = await fetchUrl(url)
-    // 要素名の含まれた文字列を配列に分割
     const tags = splitString(elements, [',', '+'])
-    // 取得する属性を判定するオプションを取得
-    const attributes = getAttributeOption(attrs)
+
+    let processedAttrs: string | string[] = attrs
+
+    // フォームから来た場合（配列の場合）の処理
+    if (Array.isArray(attrs)) {
+        processedAttrs = attrs.length > 0 ? attrs : 'all'
+    }
+
+    const attributes = getAttributeOption(processedAttrs)
 
     return { contents, tags, attributes }
 }

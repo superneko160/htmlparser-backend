@@ -38,7 +38,7 @@ describe('getElementAttributes', () => {
             div: [{ id: 'main' }],
             span: [{}, {}],
         }
-        const actual = getElementAttributes(contents, elementNames, 'id')
+        const actual = getElementAttributes(contents, elementNames, ['id'])
         expect(actual).toEqual(expected)
     })
 
@@ -53,7 +53,7 @@ describe('getElementAttributes', () => {
             div: [{ class: 'container' }],
             span: [{}, {}],
         }
-        const actual = getElementAttributes(contents, elementNames, 'class')
+        const actual = getElementAttributes(contents, elementNames, ['class'])
         expect(actual).toEqual(expected)
     })
 
@@ -68,7 +68,22 @@ describe('getElementAttributes', () => {
             div: [{ id: 'main', class: 'container' }],
             span: [{}, {}],
         }
-        const actual = getElementAttributes(contents, elementNames, 'idAndClass')
+        const actual = getElementAttributes(contents, elementNames, ['id', 'class'])
+        expect(actual).toEqual(expected)
+    })
+
+    it('複数の属性（id, class, src）を取得できる', () => {
+        const contents = `
+      <div id="main" class="container" data-test="value">
+        <img src="image1.jpg" alt="Image 1" class="photo">
+        <img src="image2.jpg" data-id="img2">
+      </div>`
+        const elementNames = ['div', 'img']
+        const expected = {
+            div: [{ id: 'main', class: 'container' }],
+            img: [{ src: 'image1.jpg', class: 'photo' }, { src: 'image2.jpg' }],
+        }
+        const actual = getElementAttributes(contents, elementNames, ['id', 'class', 'src'])
         expect(actual).toEqual(expected)
     })
 
@@ -113,7 +128,7 @@ describe('getElementAttributes', () => {
             div: [{ id: 'main', class: 'container' }],
             span: [{}, {}],
         }
-        const actual = getElementAttributes(contents, elementNames, 'idAndClass', true)
+        const actual = getElementAttributes(contents, elementNames, ['id', 'class'], true)
         expect(actual).toEqual(expected)
     })
 
@@ -128,7 +143,26 @@ describe('getElementAttributes', () => {
             div: [{ id: 'main', class: 'container' }],
             span: [],
         }
-        const actual = getElementAttributes(contents, elementNames, 'idAndClass', false)
+        const actual = getElementAttributes(contents, elementNames, ['id', 'class'], false)
+        expect(actual).toEqual(expected)
+    })
+
+    it('カスタム属性（data-*, aria-*など）を取得できる', () => {
+        const contents = `
+      <div data-component="header" aria-label="Main navigation">
+        <button data-action="toggle" aria-expanded="false">Menu</button>
+      </div>`
+        const elementNames = ['div', 'button']
+        const expected = {
+            div: [{ 'data-component': 'header', 'aria-label': 'Main navigation' }],
+            button: [{ 'data-action': 'toggle', 'aria-expanded': 'false' }],
+        }
+        const actual = getElementAttributes(contents, elementNames, [
+            'data-component',
+            'aria-label',
+            'data-action',
+            'aria-expanded',
+        ])
         expect(actual).toEqual(expected)
     })
 })
