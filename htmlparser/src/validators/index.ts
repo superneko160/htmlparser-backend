@@ -1,3 +1,28 @@
+import type { MiddlewareHandler } from 'hono'
+import { validator } from 'hono/validator'
+import { removeWhitespace } from './../helpers/stringHelpers'
+
+/**
+ * フォームに入力されたURLと要素のバリデーション
+ * @return {MiddlewareHandler} バリデーション結果
+ */
+export function validateParseRequest(): MiddlewareHandler {
+    return validator('form', async (value, c) => {
+        const url = removeWhitespace(value.url)
+        const elements = removeWhitespace(value.elements)
+
+        if (!matchesUrlPattern(url)) {
+            return c.json({ status: 400, error: 'Invalid URL' })
+        }
+
+        if (!matchesElementNamePattern(elements)) {
+            return c.json({ status: 400, error: 'Invalid element names' })
+        }
+
+        return value
+    })
+}
+
 /**
  * URLの正規表現パターンにマッチしているか判定
  * @param {string} url URL

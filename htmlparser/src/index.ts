@@ -1,15 +1,13 @@
 import { Hono } from 'hono'
 import { html } from 'hono/html'
 import { cors } from 'hono/cors'
-import { validator } from 'hono/validator'
 import type { FetchDependencies } from './types'
+import { validateParseRequest } from './validators'
 import { getAttributeOption } from './helpers/attributeHelpers'
-import { splitString, removeWhitespace } from './helpers/stringHelpers'
+import { splitString } from './helpers/stringHelpers'
 import { fetchUrl } from './utils/fetchUrl'
-import { prepareElementAttributes } from './utils/prepareElements'
-import { getElementAttributes } from './parsers/getElements'
-import { matchesUrlPattern, matchesElementNamePattern } from './validators'
 import { convertToCSV } from './utils/csvConverter'
+import { parseHtmlData } from './parsers/parseHtmlData'
 
 const app = new Hono()
 
@@ -58,31 +56,14 @@ app.get('/', c => {
 // HTML解析処理
 app.post(
     '/parse',
-    validator('form', async (value, c) => {
-        const url = removeWhitespace(value.url)
-        const elements = removeWhitespace(value.elements)
-
-        if (!matchesUrlPattern(url)) return c.json({ status: 400, error: 'Invalid URL' })
-
-        if (!matchesElementNamePattern(elements))
-            return c.json({ status: 400, error: 'Invalid element names' })
-
-        return value
-    }),
+    validateParseRequest(),
     async c => {
         const body = await c.req.parseBody()
         const { url, elements } = body
         const attrs = body['attrs[]']
 
         try {
-            const { contents, tags, attributes } = await prepareElementAttributes(
-                url,
-                elements,
-                attrs,
-                fetchDeps,
-            )
-
-            const data = getElementAttributes(contents, tags, attributes, false)
+            const data = await parseHtmlData(url, elements, attrs, fetchDeps)
 
             return c.json({
                 status: 200,
@@ -98,31 +79,14 @@ app.post(
 // HTML解析結果のJSONファイルをダウンロード
 app.post(
     '/parse/json',
-    validator('form', async (value, c) => {
-        const url = removeWhitespace(value.url)
-        const elements = removeWhitespace(value.elements)
-
-        if (!matchesUrlPattern(url)) return c.json({ status: 400, error: 'Invalid URL' })
-
-        if (!matchesElementNamePattern(elements))
-            return c.json({ status: 400, error: 'Invalid element names' })
-
-        return value
-    }),
+    validateParseRequest(),
     async c => {
         const body = await c.req.parseBody()
         const { url, elements } = body
         const attrs = body['attrs[]']
 
         try {
-            const { contents, tags, attributes } = await prepareElementAttributes(
-                url,
-                elements,
-                attrs,
-                fetchDeps,
-            )
-
-            const data = getElementAttributes(contents, tags, attributes, false)
+            const data = await parseHtmlData(url, elements, attrs, fetchDeps)
             const jsonData = JSON.stringify(data, null, 2)
 
             return c.body(jsonData, 200, {
@@ -139,31 +103,14 @@ app.post(
 // HTML解析結果のCSVファイルをダウンロード
 app.post(
     '/parse/csv',
-    validator('form', async (value, c) => {
-        const url = removeWhitespace(value.url)
-        const elements = removeWhitespace(value.elements)
-
-        if (!matchesUrlPattern(url)) return c.json({ status: 400, error: 'Invalid URL' })
-
-        if (!matchesElementNamePattern(elements))
-            return c.json({ status: 400, error: 'Invalid element names' })
-
-        return value
-    }),
+    validateParseRequest(),
     async c => {
         const body = await c.req.parseBody()
         const { url, elements } = body
         const attrs = body['attrs[]']
 
         try {
-            const { contents, tags, attributes } = await prepareElementAttributes(
-                url,
-                elements,
-                attrs,
-                fetchDeps,
-            )
-
-            const data = getElementAttributes(contents, tags, attributes, false)
+            const data = await parseHtmlData(url, elements, attrs, fetchDeps)
             const csvData = convertToCSV(data)
 
             return c.body(csvData, 200, {
