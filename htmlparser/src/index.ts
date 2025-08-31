@@ -6,9 +6,8 @@ import { validateParseRequest } from './validators'
 import { getAttributeOption } from './helpers/attributeHelpers'
 import { splitString } from './helpers/stringHelpers'
 import { fetchUrl } from './utils/fetchUrl'
-import { prepareElementAttributes } from './utils/prepareElements'
-import { getElementAttributes } from './parsers/getElements'
 import { convertToCSV } from './utils/csvConverter'
+import { parseHtmlData } from './parsers/parseHtmlData'
 
 const app = new Hono()
 
@@ -64,14 +63,7 @@ app.post(
         const attrs = body['attrs[]']
 
         try {
-            const { contents, tags, attributes } = await prepareElementAttributes(
-                url,
-                elements,
-                attrs,
-                fetchDeps,
-            )
-
-            const data = getElementAttributes(contents, tags, attributes, false)
+            const data = await parseHtmlData(url, elements, attrs, fetchDeps)
 
             return c.json({
                 status: 200,
@@ -94,14 +86,7 @@ app.post(
         const attrs = body['attrs[]']
 
         try {
-            const { contents, tags, attributes } = await prepareElementAttributes(
-                url,
-                elements,
-                attrs,
-                fetchDeps,
-            )
-
-            const data = getElementAttributes(contents, tags, attributes, false)
+            const data = await parseHtmlData(url, elements, attrs, fetchDeps)
             const jsonData = JSON.stringify(data, null, 2)
 
             return c.body(jsonData, 200, {
@@ -125,14 +110,7 @@ app.post(
         const attrs = body['attrs[]']
 
         try {
-            const { contents, tags, attributes } = await prepareElementAttributes(
-                url,
-                elements,
-                attrs,
-                fetchDeps,
-            )
-
-            const data = getElementAttributes(contents, tags, attributes, false)
+            const data = await parseHtmlData(url, elements, attrs, fetchDeps)
             const csvData = convertToCSV(data)
 
             return c.body(csvData, 200, {
