@@ -12,13 +12,16 @@ import { getElementAttributes } from './getElements'
  * @return {Promise<ElementAttributesMap>} 各要素名をキーとする属性と値の配列を持つオブジェクト
  */
 export async function parseHtmlData(
-    url: string, 
-    elements: string, 
-    attrs: string | string[], 
-    fetchDeps: FetchDependencies
+    url: string,
+    elements: string,
+    attrs: string | string[],
+    fetchDeps: FetchDependencies,
 ): Promise<ElementAttributesMap> {
     const { contents, tags, attributes } = await prepareElementAttributes(
-        url, elements, attrs, fetchDeps
+        url,
+        elements,
+        attrs,
+        fetchDeps,
     )
 
     return getElementAttributes(contents, tags, attributes, false)
