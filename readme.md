@@ -14,6 +14,17 @@ Frontend App: [htmlparser-frontend](https://github.com/superneko160/htmlparser-f
 | Download JSON | POST | ```https://htmlparser.supernekocat31.workers.dev/parse/json``` |
 | Donwload CSV | POST | ```https://htmlparser.supernekocat31.workers.dev/parse/csv``` |
 
+### Use Curl
+
+```sh
+curl \
+  -F "url=https://github.com/superneko160/htmlparser-backend/blob/main/htmlparser/src/index.ts" \
+  -F "elements=h1,span" \
+  -F "attrs[]=id" \
+  -F "attrs[]=class" \
+  https://htmlparser.supernekocat31.workers.dev/parse
+```
+
 ## SetUp
 
 ```bash
