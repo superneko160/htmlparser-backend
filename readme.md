@@ -27,14 +27,14 @@ curl \
 
 ## SetUp
 
-```bash
+```sh
 cd htmlparser
 bun install
 ```
 
 ## Run
 
-```bash
+```sh
 bun run dev
 ```
 
@@ -46,19 +46,19 @@ http://localhost:8787
 
 ## Test
 
-```bash
+```sh
 bun test
 ```
 
 ## Lint
 
-```bash
+```sh
 bun lint
 ```
 
 ## Format
 
-```bash
+```sh
 bun format
 ```
 
