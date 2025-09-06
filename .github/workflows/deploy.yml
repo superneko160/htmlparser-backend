@@ -7,6 +7,21 @@ on:
 
 jobs:
 
+  test:
+    needs: format
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+    - name: Install dependencies
+      run: bun install
+      working-directory: htmlparser
+    - name: Run tests
+      run: bun run test
+      working-directory: htmlparser
+
   format:
     runs-on: ubuntu-latest
     steps:
@@ -30,21 +45,6 @@ jobs:
       if: success()
       run: |
         git push
-
-  test:
-    needs: format
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: oven-sh/setup-bun@v2
-      with:
-        bun-version: latest
-    - name: Install dependencies
-      run: bun install
-      working-directory: htmlparser
-    - name: Run tests
-      run: bun run test
-      working-directory: htmlparser
 
   deploy:
     needs: test
