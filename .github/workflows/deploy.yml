@@ -40,7 +40,7 @@ jobs:
         git config user.name 'GitHub Actions'
         git config user.email "github-actions@example.com"
         git add .
-        git commit -m 'style:Format code' || echo 'No changes to commit'
+        git commit -m 'style: ✨Format code' || echo 'No changes to commit'
     - name: Push formatted code
       if: success()
       run: |
