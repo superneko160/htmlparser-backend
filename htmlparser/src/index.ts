@@ -1,11 +1,8 @@
 import { Hono } from 'hono'
 import { html } from 'hono/html'
 import { cors } from 'hono/cors'
-import type { FetchDependencies } from './types'
+import { fetchDeps } from './config/dependencies'
 import { validateParseRequest } from './validators'
-import { getAttributeOption } from './helpers/attributeHelpers'
-import { splitString } from './helpers/stringHelpers'
-import { fetchUrl } from './utils/fetchUrl'
 import { convertToCSV } from './utils/csvConverter'
 import { parseHtmlData } from './parsers/parseHtmlData'
 
@@ -20,12 +17,6 @@ app.use(
         allowHeaders: ['Content-Type'], // 許可するヘッダ
     }),
 )
-
-const fetchDeps: FetchDependencies = {
-    fetchUrl,
-    splitString,
-    getAttributeOption,
-}
 
 // 検証用フォーム
 app.get('/', c => {
