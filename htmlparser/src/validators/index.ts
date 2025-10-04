@@ -29,7 +29,7 @@ export function validateParseRequest(): MiddlewareHandler {
  * @return {boolean} 判定結果
  */
 export function matchesUrlPattern(url: string): boolean {
-    const urlPattern = /^https?:\/\/[\w/:%#\$&\?\(\)~\.=\+\-]+$/
+    const urlPattern = /^https?:\/\/[\w/:%#$&?()~.=+-]+$/
     return urlPattern.test(url)
 }
 
