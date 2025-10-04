@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
-import { html } from 'hono/html'
 import { cors } from 'hono/cors'
+import { indexForm } from './views/form'
 import { fetchDeps } from './config/dependencies'
 import { validateParseRequest } from './validators'
 import { convertToCSV } from './utils/csvConverter'
@@ -20,28 +20,7 @@ app.use(
 
 // 検証用フォーム
 app.get('/', c => {
-    return c.html(
-        html`<!doctype html>
-            <html lang="ja">
-                <head>
-                    <title>HTML解析</title>
-                    <meta charset="utf-8">
-                </head>
-                <body>
-                    <form method="post">
-                        URL:<input type="url" name="url"><br>
-                        要素名：<input type="text" name="elements"><br>
-                        id <input type="checkbox" name="attrs[]" value="id">
-                        class <input type="checkbox" name="attrs[]" value="class">
-                        src <input type="checkbox" name="attrs[]" value="src">
-                        href <input type="checkbox" name="attrs[]" value="href"><br>
-                        <input type="submit" formaction="/parse" value="解析">
-                        <input type="submit" formaction="/parse/json" value="解析結果DL(JSON)">
-                        <input type="submit" formaction="/parse/csv" value="解析結果DL(CSV)">
-                    </form>
-                </body>
-            </html>`,
-    )
+    return c.html(indexForm)
 })
 
 // HTML解析処理
