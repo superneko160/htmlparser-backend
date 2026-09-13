@@ -10,6 +10,12 @@
   "dependencyDashboard": false,
   "packageRules": [
     {
+      "matchFileNames": [
+        ".node-version"
+      ],
+      "enabled": false
+    },
+    {
       "matchUpdateTypes": [
         "patch",
         "minor"
